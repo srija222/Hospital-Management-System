@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="hospitalApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor & Patient Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f4f4f9;
+            background-size: cover; /* Ensures the image covers the entire page */
+            background-position: center; /* Center the image */
+            background-image: url('doctor.jpg');
+        }
+
+        .container {
+            width: 80%;
+            max-width: 900px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            display: none; /* Hidden by default */
+        }
+
+        h2 {
+            text-align: center;
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .no-results {
+            text-align: center;
+            color: red;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+
+        .login-container {
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            margin: 50px auto;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body ng-controller="DoctorSearchController">
+
+    <!-- Login Section -->
+    <div class="login-container" id="login-section">
+        <h2>Doctor's Login</h2>
+        <form id="login-form">
+            <input type="text" id="username" placeholder="Enter Username" required>
+            <input type="password" id="password" placeholder="Enter Password" required>
+            <button type="button" onclick="login()">Login</button>
+        </form>
+        <div class="error-message" id="error-message"></div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container" id="main-content">
+        <h2>Search for Doctor and View Patient Details</h2>
+
+        <!-- Doctor Dropdown -->
+        <label for="doctor-select">Select Doctor:</label>
+        <select id="doctor-select" ng-model="doctorSearch" ng-change="getPatientsForDoctor()">
+            <option value="">Select a Doctor</option>
+            <option value="Dr. Smith">Dr. Smith (Cardiologist)</option>
+            <option value="Dr. John">Dr. John (Dermatologist)</option>
+            <option value="Dr. Lee">Dr. Lee (Pediatrician)</option>
+            <option value="Dr. Adams">Dr. Adams (Neurologist)</option>
+                <option value="Dr. Brown">Dr. Brown (Orthopedic Surgeon)</option>
+                <option value="Dr. Green">Dr. Green (Gastroenterologist)</option>
+                <option value="Dr. Davis">Dr. Davis (Oncologist)</option>
+                <option value="Dr. Taylor">Dr. Taylor (Psychiatrist)</option>
+                <option value="Dr. White">Dr. White (Endocrinologist)</option>
+                <option value="Dr. Garcia">Dr. Garcia (Ophthalmologist)</option>
+                <option value="Dr. Clark">Dr. Clark (General Practitioner)</option>
+                <option value="Dr. Martinez">Dr. Martinez (Gynecologist)</option>
+
+        </select>
+
+        <!-- Patients Table -->
+        <table ng-if="filteredPatients.length > 0">
+            <thead>
+                <tr>
+                    <th>Patient Name</th>
+                    <th>Age</th>
+                    <th>Gender</th>
+                    <th>Problem</th>
+                    <th>Appointment Date</th>
+                    <th>Appointment Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="patient in filteredPatients">
+                    <td>{{patient.name}}</td>
+                    <td>{{patient.age}}</td>
+                    <td>{{patient.gender}}</td>
+                    <td>{{patient.problem}}</td>
+                    <td>{{patient.date}}</td>
+                    <td>{{patient.time}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- No Patients Found -->
+        <div class="no-results" ng-if="filteredPatients.length === 0 && doctorSearch">
+            No patients found for the selected doctor.
+        </div>
+    </div>
+
+    <!-- AngularJS Library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+
+    <!-- JavaScript for Login and Main Content Toggle -->
+    <script>
+        function login() {
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+            const errorMessage = document.getElementById("error-message");
+
+            // Hardcoded credentials for demonstration purposes
+            const validUsername = "admin";
+            const validPassword = "1234";
+
+            if (username === validUsername && password === validPassword) {
+                alert("Login successful!");
+                document.getElementById("login-section").style.display = "none"; // Hide login
+                document.getElementById("main-content").style.display = "block"; // Show main content
+            } else {
+                errorMessage.textContent = "Invalid username or password. Please try again.";
+            }
+        }
+
+        var app = angular.module('hospitalApp', []);
+
+        app.controller('DoctorSearchController', function($scope) {
+            // Retrieve patient data from localStorage
+            $scope.patients = JSON.parse(localStorage.getItem('patients')) || [];
+
+            // Search input model
+            $scope.doctorSearch = "";
+
+            // Filtered patients array
+            $scope.filteredPatients = [];
+
+            // Filter patients by doctor name
+            $scope.getPatientsForDoctor = function() {
+                if ($scope.doctorSearch) {
+                    $scope.filteredPatients = $scope.patients.filter(function(patient) {
+                        return patient.doctor === $scope.doctorSearch;
+                    });
+                } else {
+                    $scope.filteredPatients = [];
+                }
+            };
+        });
+    </script>
+</body>
+</html>

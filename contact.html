@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <style>
+        /* General Styles */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            height: 100%; /* Ensure body and html take up full height */
+            display: flex;
+            flex-direction: column; /* Use flexbox to arrange elements vertically */
+            background-image: url('contact.jpg');
+            background-size: cover; /* Ensure the background image covers the page */
+            background-position: center; /* Center the background image */
+        }
+
+       
+
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #0056b3;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: white;
+            padding: 15px 20px;
+            display: block;
+        }
+
+        nav a:hover {
+            background-color: #003f7f;
+        }
+
+        /* Main Content Container */
+         .container {
+            flex: 1; /* This makes the content take up all available space */
+            padding: 90px;
+            text-align: left; 
+            margin-left: 50px; /* Adds 10px margin to the left */
+            max-width: calc(100% - 20px); /* Ensure content doesn't overflow */
+        }
+        /* Footer */
+        footer {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    
+    
+    <div class="container">
+        <h2>Get in Touch</h2>
+        <p ><b>Address: 123 Hospital Street, Hanamkonda, India</b></p>
+        <p ><b>Phone: +123 456 7890</b></p>
+        <p ><b>Email: info@hospital.com</b></p>
+    </div>
+
+    <footer>
+        © 2024 Hospital Management System
+    </footer>
+</body>
+</html>

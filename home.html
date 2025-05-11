@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <style>
+        /* Make the body use flexbox layout */
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Ensures the footer stays at the bottom */
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('about us.jpg');
+            background-size: cover;
+            background-position: center;
+            justify-content: flex-start; /* Start content from the top */
+        }
+
+        /* Make the container hold the content and align it to the bottom-left with some space */
+        .container {
+            padding: 20px;
+            text-align: left; /* Left-align the text */
+            margin-left: 10px; /* 10px margin from the left */
+            margin-top: auto; /* Push content towards bottom */
+            max-width: 800px;
+        }
+
+        /* Paragraph style */
+        .container p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Footer style */
+        footer {
+            text-align: center;
+            background-color: #007bff;
+            color: white;
+            padding: 10px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <p>
+            Our Hospital Management System is designed to provide seamless <br>healthcare management for patients, doctors, and administrators. <br>
+            We aim to improve healthcare services by providing a robust platform <br>that ensures efficient appointment booking, 
+            doctor management, and<br> administrative functionalities.
+        </p>
+    </div>
+
+    <!-- Footer is automatically positioned at the bottom -->
+    <footer>
+        © 2024 Hospital Management System
+    </footer>
+
+</body>
+</html>
